@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<!-- Coding by Royal 420 KE - YouTube.com/ROYAL420KE -->
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Guess a word game JavaScript | Royal 420 KE</title>
+
+    <link rel="stylesheet" href="Style.css">
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+      <img src="logo.png" alt="none">
+
+        <h1>Guess the word</h1>
+
+        <div class="content">
+
+            <input type="text" class="typing-input" maxlength="1">
+
+            <div class="inputs"></div>
+
+            <div class="details">
+
+                <p class="hint">Hint: <span></span></p>
+
+                <p class="guess-left">Remaining Guesses: <span></span></p>
+
+                <p class="wrong-letters">Wrong Lettres: <span></span></p>
+
+            </div>
+
+            <button class="reset-btn">Reset Game</button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        
+
+let wordList = [
+{
+word: "python",
+hint: "programming language"
+},
+{
+word: "guitar",
+hint: "a musical instrument"
+},
+{
+word: "aim",
+hint: "a purpose or intention"
+},
+{
+word: "venus",
+hint: "planet of our solar system"
+},
+{
+word: "gold",
+hint: "a yellow precious metal"
+},
+{
+word: "ebay",
+hint: "online shopping site"
+},
+{
+word: "golang",
+hint: "programming language"
+},
+{
+word: "coding",
+hint: "related to programming"
+},
+{
+
+word: "matrix",
+hint: "science fiction movie"
+},
+{
+word: "bugs",
+hint: "related to programming"
+},
+{
+word: "avatar",
+hint: "epic science fiction film"
+},
+{
+word: "gif",
+hint: "a file format for image"
+},
+{
+word: "mental",
+hint: "related to the mind"
+},
+{
+word: "map",
+hint: "diagram represent of an area"
+},
+{
+word: "island",
+hint: "land surrounded by water"
+},
+{
+word: "hockey",
+hint: "a famous outdoor game"
+},
+{
+word: "chess",
+hint: "related to a indoor game"
+},
+{
+word: "viber",
+hint: "a social media app"
+},
+{
+
+word: "github",
+hint: "code hosting platform"
+},
+{
+word: "png",
+hint: "a image file format"
+},
+{
+word: "silver",
+hint: "precious greyish-white metal"
+},
+{
+word: "mobile",
+hint: "an electronic device"
+},
+{
+word: "gpu",
+hint: "computer component"
+},
+{
+word: "java",
+hint: "programming language"
+},
+{
+word: "google",
+hint: "famous search engine"
+},
+{
+word: "venice",
+hint: "famous city of waters"
+},
+{
+word: "excel",
+hint: "microsoft product for windows"
+},
+{
+word: "mysql",
+hint: "a relational database system"
+},
+{
+
+word: "nepal",
+hint: "developing country name"
+},
+{
+word: "flute",
+hint: "a musical instrument"
+},
+{
+word: "crypto",
+hint: "related to cryptocurrency"
+},
+{
+word: "tesla",
+hint: "unit of magnetic flux density"
+},
+{
+word: "mars",
+hint: "planet of our solar system"
+},
+{
+word: "proxy",
+hint: "related to server application"
+},
+{
+word: "email",
+hint: "related to exchanging message"
+},
+{
+word: "html",
+hint: "markup language for the web"
+},
+{
+word: "air",
+hint: "related to a gas"
+},
+{
+word: "idea",
+hint: "a thought or suggestion"
+},
+{
+
+word: "server",
+hint: "related to computer or system"
+},
+{
+word: "svg",
+hint: "a vector image format"
+},
+{
+word: "jpeg",
+hint: "a image file format"
+},
+{
+word: "search",
+hint: "act to find something"
+},
+{
+word: "key",
+hint: "small piece of metal"
+},
+{
+word: "egypt",
+hint: "a country name"
+},
+{
+word: "joker",
+hint: "psychological thriller film"
+},
+{
+word: "dubai",
+hint: "developed country name"
+},
+{
+word: "photo",
+hint: "representation of person or scene"
+},
+{
+word: "nile",
+hint: "largest river in the world"
+},
+{
+
+word: "rain",
+hint: "related to a water"
+},
+]
+
+
+
+        const inputs = document.querySelector(".inputs"),
+
+        //lets get random word on button click
+
+        resetBtn = document.querySelector(".reset-btn"),
+
+        wrongLetter = document.querySelector(".wrong-letters"),
+
+        //lets sow hint of the random word
+
+        hint = document.querySelector(".hint span"),
+
+        //lets work on Guesses
+
+        guessLeft = document.querySelector(".guess-left span"),
+
+        typingInput = document.querySelector(".typing-input");
+
+
+
+        //making word a global variable, so that we can access anywhere
+
+        //lets show wrong letters here
+
+        //lets do the same for correct letters
+
+        let word,maxGuesses, corrects = [], incorrects = []; //resetting all values to default
+
+
+
+        
+
+
+
+        function randomWord(){//Lets get random object from the wordList
+
+            let randomObj = wordList[Math.floor(Math.random() * wordList.length)];
+
+            word = randomObj.word; //getting word of random object
+
+            //maxGuesses is 8 by default
+
+            maxGuesses = 8; corrects = []; incorrects = [];
+
+            console.log(word);
+
+
+
+            hint.innerText = randomObj.hint;
+
+            guessLeft.innerText = maxGuesses;
+
+            wrongLetter.innerText = incorrects;
+
+
+
+
+
+
+
+            let html = "";
+
+            for (let i=0; i< word.length; i++){
+
+                html += `<input type="text" disabled>`;
+
+            }
+
+            inputs.innerHTML = html;
+
+        }
+
+        //getting random object from the wordList
+
+        randomWord();
+
+        
+
+        //Getting user pressed key
+
+        function initGame(e) {
+
+            let key = e.target.value;
+
+            //lets validate ser pressed key if its is alphabet character or number
+
+            //lets restrict the user from typing the same key twice
+
+            if(key.match(/^[A-Za-z]+$/) && !incorrects.includes(` ${key}`)
+
+            && !corrects.includes(key)){
+
+                console.log(key);
+
+                //lets check if entered letter is in the word or not
+
+                if(word.includes(key)){//if user letter found in the word
+
+
+
+                    //lets sow the found letter in the input
+
+                    for(let i = 0; i < word.length; i++){
+
+                        //showing matched letter in the input value
+
+                        if(word[i] === key) {
+
+                            corrects.push(key);
+
+                            inputs.querySelectorAll("input")[i].value = key; 
+
+                        }
+
+                    }
+
+                }else{
+
+                    maxGuesses--; //decrement of maxGuesses by 1
+
+                    //lets add space between the wrong letters
+
+                    incorrects.push(` ${key}`);
+
+                }
+
+            guessLeft.innerText = maxGuesses;
+
+            wrongLetter.innerText = incorrects;
+
+            }
+
+            //lets empty the input tag once user entered any key
+
+            typingInput.value = "";
+
+
+
+            //lets show alert if user found all letters
+
+
+
+            //lets show alert after some delay, so the user entered key appear there
+
+            setTimeout(() => {
+
+                if(corrects.length === word.length){
+
+                    alert(`Congrats! You found the word. ${word.toUpperCase()}`);
+
+                    randomWord(); //calling random word function, so the game reset
+
+                }
+
+    
+
+    
+
+    
+
+                else if(maxGuesses < 1){//if user id not find all the letters
+
+                    alert("Game over! you don't have remaining guesses");
+
+                    for(let i = 0; i < word.length; i++){
+
+                        //show all letters in the input
+
+                        inputs.querySelectorAll("input")[i].value = word[i];
+
+                    }
+
+                }
+
+            });
+
+        }
+
+
+
+        resetBtn.addEventListener("click", randomWord);
+
+        typingInput.addEventListener("input", initGame);
+
+        //There is no key event on phone, so user can activate the keyboard by click on the given input boxes
+
+        inputs.addEventListener("click", () => typingInput.focus());
+
+        //automatically focusing input when user press any key
+
+        document.addEventListener("keydown", () => typingInput.focus());
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
